@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: stock-closing-price-api-env
+  namespace: default
+data:
+  SYMBOL: MSFT
+  NDAYS: "7"
