@@ -30,6 +30,12 @@ spec:
             configMapKeyRef:
               name: stock-closing-price-api-env
               key: SYMBOL
+        - name: SECRET_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: stock-closing-price-api-secret
+              key: APIKEY
+              optional: false # "stock-closing-price-api-secret" must exist and have a key called "apikey"
         volumeMounts:
         - name: config
           mountPath: "/config"
