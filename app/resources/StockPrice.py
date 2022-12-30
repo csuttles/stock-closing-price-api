@@ -34,7 +34,7 @@ class StockData(object):
         self.NDAYS = int(os.getenv("NDAYS") or "5")
         #  curl 'https://www.alphavantage.co/query?apikey=C227WD9W3LUVKVV9&function=TIME_SERIES_DAILY_ADJUSTED&symbol=MSFT'
         self.url = 'https://www.alphavantage.co/query?'
-        self.api_key = "C227WD9W3LUVKVV9"
+        self.api_key = os.getenv("APIKEY") or "C227WD9W3LUVKVV9"
         self.api_function = "TIME_SERIES_DAILY_ADJUSTED"
         self.params = {
             "apikey": self.api_key,

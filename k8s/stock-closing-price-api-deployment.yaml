@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: stock-closing-price-api
-        image: csuttles/stock-closing-price-api:0.0.1
+        image: csuttles/stock-closing-price-api:0.0.4
         ports:
         - containerPort: 5000
         env:
@@ -30,7 +30,7 @@ spec:
             configMapKeyRef:
               name: stock-closing-price-api-env
               key: SYMBOL
-        - name: SECRET_PASSWORD
+        - name: APIKEY
           valueFrom:
             secretKeyRef:
               name: stock-closing-price-api-secret
