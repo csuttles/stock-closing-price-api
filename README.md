@@ -29,8 +29,10 @@ run `run-docker-local.sh`
 spin up minikube, docker-desktop, etc
 
 ```
-kubectl create -f k8s-configmap.yaml
-kubectl apply -f k8s-deployment.yaml
+cd k8s
+kubectl create -f stock-closing-price-api-env.yaml
+kubectl create -f stock-closing-price-api-secret.yaml
+kubectl create -f stock-closing-price-api-deployment.yaml
 kubectl port-forward deployment/stock-closing-price-api 5000
 ```
 ## test with curl
