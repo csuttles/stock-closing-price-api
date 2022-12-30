@@ -32,7 +32,7 @@ spin up minikube, docker-desktop, etc
 cd k8s
 kubectl create -f stock-closing-price-api-env.yaml
 kubectl create -f stock-closing-price-api-secret.yaml
-kubectl create -f stock-closing-price-api-deployment.yaml
+kubectl apply -f stock-closing-price-api-deployment.yaml
 kubectl port-forward deployment/stock-closing-price-api 5000
 ```
 ## test with curl
@@ -48,4 +48,30 @@ curl localhost:5000/stockprice/
 ```
 
 This will only work with k8s locally if the port-forward is running.
+
+## updating the image, adding and deploying a change
+
+Build the image, and set the tag version to a release that follows semantic versioning (major.minor.patch)
+```
+docker build --tag "${DOCKER_USERNAME}/${DOCKER_IMAGENAME}:0.0.4" .
+```
+
+Once the build succeeds locally, push it to the docker registry (could easily be artifactory, etc).
+The example here is pushing to Docker hub.
+```
+docker push csuttles/stock-closing-price-api:0.0.4
+```
+
+Update the kubernetes deployment's containerspec to use the new version.
+
+In this example line 19 has been edited to include the version we pushed in the previous step.
+```
+ 16     spec:
+ 17       containers:
+ 18       - name: stock-closing-price-api
+ 19         image: csuttles/stock-closing-price-api:0.0.4
+ 20         ports:
+ 21         - containerPort: 5000
+```
+
 
