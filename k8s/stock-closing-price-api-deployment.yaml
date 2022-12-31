@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: stock-closing-price-api
-        image: csuttles/stock-closing-price-api:0.0.4
+        image: csuttles/stock-closing-price-api:0.0.5
         ports:
         - containerPort: 5000
         env:

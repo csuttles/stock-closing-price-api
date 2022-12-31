@@ -1,6 +1,7 @@
 import os
 import requests
 
+from cachetools import cached, TTLCache
 from flask_restful import Resource
 from requests import HTTPError
 from statistics import mean
@@ -42,6 +43,8 @@ class StockData(object):
             "symbol": self.symbol,
         }
 
+    # cache the data from our upstream API so we don't make excessive calls and exceed the APIKEY quota
+    @cached(cache=TTLCache(maxsize=1024, ttl=600))
     def _get(self) -> dict:
         '''
         This defines the fetch of our upstream data and returns it

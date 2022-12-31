@@ -58,13 +58,13 @@ kubectl port-forward deployment/stock-closing-price-api 5000 &
 
 Build the image, and set the tag version to a release that follows semantic versioning (major.minor.patch)
 ```
-docker build --tag "${DOCKER_USERNAME}/${DOCKER_IMAGENAME}:0.0.4" .
+docker build --tag "${DOCKER_USERNAME}/${DOCKER_IMAGENAME}:0.0.5" .
 ```
 
 Once the build succeeds locally, push it to the docker registry (could easily be artifactory, etc).
 The example here is pushing to Docker hub.
 ```
-docker push csuttles/stock-closing-price-api:0.0.4
+docker push csuttles/stock-closing-price-api:0.0.5
 ```
 
 Update the kubernetes deployment's containerspec to use the new version.
@@ -74,7 +74,7 @@ In this example line 19 has been edited to include the version we pushed in the 
  16     spec:
  17       containers:
  18       - name: stock-closing-price-api
- 19         image: csuttles/stock-closing-price-api:0.0.4
+ 19         image: csuttles/stock-closing-price-api:0.0.5
  20         ports:
  21         - containerPort: 5000
 ```
