@@ -80,3 +80,45 @@ In this example line 19 has been edited to include the version we pushed in the 
 ```
 
 
+## Resilience
+
+In the current state, this is not a production ready product (not even close).
+This is a "proof of concept" level of completion. This section discusses what changes could (and must) be made if this were to become a more resilient version of this service.
+
+### Concerns to address with app itself
+
+There are many concerns to resolve. The first things to fix:
+
+* every get creates a get to the upstream API
+* no persistence layer or caching
+* limited features in api (response could include cache-control / expiry in headers, no parameters, no pagination, etc)
+* might be better to move to a more performant language before putting too much into this (go, java, etc)
+
+### Scaling Out and Architecture Improvements
+
+Once the largest issues are addressed, there's some easy architecture wins:
+
+* scale the deployment beyond a single replica, balance the load across replicas
+* assuming there's a persistance layer (frontend/backend model), the backend might need to be scaled to multiple replicas as well
+* depending on scale, maybe a read through cache, CDN, multi-region or both is required
+
+### Infrastructure as code
+
+* deployments should not work in prod how they work in this readme
+* terraform or similar should be used to provision infra
+* infra DSL (terraform or similar) needs to be version controlled
+* changes in the git repo should cause infrastructure to be updated (gitops)
+
+### Operational Hygeine 
+
+* monitoring / instrumentation is required
+* SLA / SLI / SLIs need to be defined based on data from observabilty tooling
+* principle of least privilege for access to systems and usage
+* keep clean, actionable logs
+
+### Security Posture
+
+* network traffic needs to also follow principle of least privilege at every layer
+* same things for system access and process execution
+* vulnerability scanning / static code analysis on repo
+* infosec review or equivalent ideally including redteam/pentest
