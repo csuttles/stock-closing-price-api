@@ -90,7 +90,7 @@ This is a "proof of concept" level of completion. This section discusses what ch
 There are many concerns to resolve. The first things to fix:
 
 * every get creates a get to the upstream API
-* no persistence layer or caching
+* no persistence layer, caching has lots of room for improvement
 * limited features in api (response could include cache-control / expiry in headers, no parameters, no pagination, etc)
 * might be better to move to a more performant language before putting too much into this (go, java, etc)
 
