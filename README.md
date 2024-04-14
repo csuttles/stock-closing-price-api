@@ -39,19 +39,19 @@ kubectl apply -f stock-closing-price-api-deployment.yaml
 There's a single endpoint, but it's available in more than one route.
 
 ```
-curl localhost:5000/
+curl localhost:8000/
 ```
 
 or
 
 ```
-curl localhost:5000/stockprice/
+curl localhost:8000/stockprice/
 ```
 
 This will only work with k8s locally if the port-forward is running.
 
 ```
-kubectl port-forward deployment/stock-closing-price-api 5000 &
+kubectl port-forward deployment/stock-closing-price-api 8000 &
 ```
 
 ## updating the image, adding and deploying a change
@@ -76,7 +76,7 @@ In this example line 19 has been edited to include the version we pushed in the 
  18       - name: stock-closing-price-api
  19         image: csuttles/stock-closing-price-api:0.0.5
  20         ports:
- 21         - containerPort: 5000
+ 21         - containerPort: 8000
 ```
 
 
